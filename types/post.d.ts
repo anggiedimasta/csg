@@ -7,7 +7,13 @@ declare global {
 	}
 
 	interface PostState {
-		posts: Post[]
+		posts: {
+			columns: TableColumn[]
+			params: TableParams
+			rows: Post[]
+			totalPage: number
+			totalRows: number
+		}
 	}
 }
 
