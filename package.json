@@ -11,6 +11,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
+  "lint-staged": {
+    "*.{js,ts,vue}": "eslint --fix"
+  },
   "dependencies": {
     "@nuxt/eslint": "1.0.1",
     "@pinia/nuxt": "0.10.1",
