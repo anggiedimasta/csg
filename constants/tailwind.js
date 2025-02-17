@@ -1,6 +1,7 @@
 import resolveConfig from 'tailwindcss/resolveConfig'
 
 import tailwindConfig from '@/tailwind.config.js'
+
 const fullConfig = resolveConfig(tailwindConfig)
 const { colors, width } = fullConfig.theme
 
@@ -24,7 +25,8 @@ function getColorOptionsAndValues() {
 							[option]: colors[colorKey][childColorKey][grandChildColorKey]
 						}
 					})
-				} else if (childType === 'string') {
+				}
+				else if (childType === 'string') {
 					const option = `${colorKey}-${childColorKey}`
 					colorOptions = [...colorOptions, option]
 					colorValues = {
@@ -33,7 +35,8 @@ function getColorOptionsAndValues() {
 					}
 				}
 			})
-		} else if (type === 'string') {
+		}
+		else if (type === 'string') {
 			colorValues = {
 				...colorValues,
 				[colorKey]: colors[colorKey]

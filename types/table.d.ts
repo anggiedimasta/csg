@@ -2,7 +2,6 @@ declare global {
 	interface TableColumn {
 		align?: left | center | right
 		headerAlign?: left | center | right
-		isAction?: boolean
 		isBodyHtml?: boolean
 		isHeaderHtml?: boolean
 		isSortable?: boolean
@@ -10,14 +9,6 @@ declare global {
 		label: string
 		valueAlign?: left | center | right
 		width?: number | string
-	}
-
-	interface TableRowAction {
-		action: string
-		icon?: string
-		params?: string[]
-		text?: string
-		variant?: string
 	}
 
 	interface TableParams {

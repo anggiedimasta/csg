@@ -6,6 +6,14 @@ declare global {
 		userId: number
 	}
 
+	interface Comment {
+		body: string
+		email: string
+		id: number
+		name: string
+		postId: number
+	}
+
 	interface TotalPostByUserRaw {
 		[userId: number]: number
 	}
@@ -16,6 +24,7 @@ declare global {
 	}
 
 	interface PostState {
+		postComments: Comment[]
 		posts: {
 			columns: TableColumn[]
 			params: TableParams

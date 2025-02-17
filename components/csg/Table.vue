@@ -7,11 +7,6 @@ defineComponent({
 })
 
 const props = defineProps({
-	actions: {
-		default: () => [],
-		required: false,
-		type: Array
-	},
 	columns: {
 		default: () => {
 			return [
@@ -131,7 +126,7 @@ const props = defineProps({
 		}
 	}
 })
-const emits = defineEmits(['get-data', 'on-dropdown-click'])
+const emits = defineEmits(['get-data'])
 
 let localParams = reactive(props.params)
 watch(
@@ -169,13 +164,6 @@ function search(searchText) {
 	localParams.search = searchText
 
 	emits('get-data', localParams)
-}
-
-function onDropdownClick(event, index) {
-	emits('on-dropdown-click', {
-		...event,
-		index
-	})
 }
 
 const sortedByLabel = computed(() => {
@@ -453,14 +441,7 @@ const computedTotalPage = computed(() => {
 								:key="`${rowIndex}-${columnIndex}`"
 								:class="`text-${column.valueAlign || column.align} break-words`"
 							>
-								<span v-if="column.isAction && actions && actions.length > 0">
-									<CsgDropdown
-										:row="row"
-										:options="actions"
-										@action="(e) => onDropdownClick(e, rowIndex)"
-									/>
-								</span>
-								<span v-else-if="column.isBodyHtml">
+								<span v-if="column.isBodyHtml">
 									<slot
 										:row-index="rowIndex"
 										:row="row"
@@ -723,8 +704,8 @@ const computedTotalPage = computed(() => {
     }
 
     .btn-group,
-    .btn-group-vertical,
-    .dropdown {
+    .btn-group-vertical
+	{
       @apply static;
     }
   }

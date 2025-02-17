@@ -1,39 +1,49 @@
 export const usePostStore = defineStore('postStore', {
 	state: (): PostState => ({
+		postComments: [],
 		posts: {
 			columns: [
 				{
 					headerAlign: 'center',
-					valueAlign: 'center',
+					isSortable: false,
 					key: 'id',
 					label: 'ID',
-					width: '50px',
-					isSortable: false
+					valueAlign: 'center',
+					width: '50px'
 				},
 				{
 					headerAlign: 'left',
+					isSortable: false,
 					key: 'title',
 					label: 'Title',
 					valueAlign: 'left',
-					width: '200px',
-					isSortable: false
+					width: '200px'
 				},
 				{
 					headerAlign: 'left',
+					isBodyHtml: true,
+					isSortable: false,
 					key: 'body',
 					label: 'Body',
 					valueAlign: 'left',
-					width: '250px',
-					isBodyHtml: true,
-					isSortable: false
+					width: '250px'
 				},
 				{
 					headerAlign: 'center',
+					isSortable: false,
 					key: 'userId',
 					label: 'User ID',
 					valueAlign: 'center',
-					width: '100px',
-					isSortable: false
+					width: '100px'
+				},
+				{
+					headerAlign: 'center',
+					isBodyHtml: true,
+					isSortable: false,
+					key: 'view-comments',
+					label: 'Action',
+					valueAlign: 'center',
+					width: '100px'
 				}
 			],
 			params: {
@@ -85,8 +95,15 @@ export const usePostStore = defineStore('postStore', {
 		}
 	}),
 	actions: {
+		async getComments(id: number) {
+			const data = await $fetch(useApiUrls().post.commentList(id), {
+				method: 'GET'
+			}).catch((error: unknown) => error) as Comment[]
+
+			this.postComments = data
+		},
 		async getPosts() {
-			const data = await $fetch(useRuntimeConfig().public.apiUrls.post.list, {
+			const data = await $fetch(useApiUrls().post.list, {
 				method: 'GET'
 			}).catch((error: unknown) => error) as Post[]
 

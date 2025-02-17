@@ -1,6 +1,6 @@
 <script setup>
-import { buttonColorPairs, buttonVariants } from '@/constants/colorpairs-and-variants'
 import VueFeather from 'vue-feather'
+import { buttonColorPairs, buttonVariants } from '@/constants/colorpairs-and-variants'
 
 defineComponent({
 	name: 'CsgButton'
@@ -99,7 +99,8 @@ const computedClasses = computed(() => {
 			if (buttonColorPairs[props.variant].borderColorClass)
 				classes += ` ${buttonColorPairs[props.variant].borderColorClass}`
 		}
-	} else {
+	}
+	else {
 		classes += `${buttonColorPairs.gray.bgColorClass} ${buttonColorPairs.gray.textColorClass} cursor-not-allowed`
 	}
 
@@ -113,14 +114,14 @@ const computedClasses = computed(() => {
 })
 const computedStyle = computed(() => {
 	let styles = {
-		color: props.textColor,
+		'color': props.textColor,
 		'background-color': props.bgColor
 	}
 
 	if (props.borderColor) {
 		styles = {
 			...styles,
-			border: '1px',
+			'border': '1px',
 			'border-color': props.borderColor,
 			'border-style': 'solid'
 		}
@@ -135,35 +136,35 @@ function onClick(event) {
 </script>
 
 <template>
-  <button
-    :aria-label="text ? text : icon"
-    :class="`csg-button ${computedClasses}`"
-    :disabled="isDisabled || isLoading"
-    :style="computedStyle"
-    @click="onClick"
-  >
-    <slot />
-    <VueFeather
-      v-if="icon && !isLoading"
-      size="1.25rem"
-      :class="{ 'mr-2': text }"
-      :type="icon"
-    />
-    <div
-      v-if="isLoading"
-      class="csg-button__loading"
-      :class="{ 'mr-2': text }"
-      :style="`border-color: ${buttonColorPairs[props.variant].textColorClass};`"
-    >
-      <span class="loading__text">Loading...</span>
-    </div>
-    <span
-      v-if="text"
-      class="csg-button__text"
-    >
-      {{ text }}
-    </span>
-  </button>
+	<button
+		:aria-label="text ? text : icon"
+		:class="`csg-button ${computedClasses}`"
+		:disabled="isDisabled || isLoading"
+		:style="computedStyle"
+		@click="onClick"
+	>
+		<slot />
+		<VueFeather
+			v-if="icon && !isLoading"
+			size="1.25rem"
+			:class="{ 'mr-2': text }"
+			:type="icon"
+		/>
+		<div
+			v-if="isLoading"
+			class="csg-button__loading"
+			:class="{ 'mr-2': text }"
+			:style="`border-color: ${buttonColorPairs[props.variant].textColorClass};`"
+		>
+			<span class="loading__text">Loading...</span>
+		</div>
+		<span
+			v-if="text"
+			class="csg-button__text"
+		>
+			{{ text }}
+		</span>
+	</button>
 </template>
 
 <style lang="scss">
