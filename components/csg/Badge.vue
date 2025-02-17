@@ -1,6 +1,6 @@
 <script setup>
-import { badgeColorPairs, badgeVariants } from '@/constants/colorpairs-and-variants'
 import VueFeather from 'vue-feather'
+import { badgeColorPairs, badgeVariants } from '@/constants/colorpairs-and-variants'
 
 defineComponent({
 	name: 'CsgBadge'
@@ -63,25 +63,25 @@ const classes = computed(() => {
 	return computedClasses
 })
 const styles = reactive({
-	color: props.textColor,
+	'color': props.textColor,
 	'background-color': props.bgColor
 })
 </script>
 
 <template>
-  <span
-    :class="`csg-badge ${classes}`"
-    :style="styles"
-  >
-    <slot />
-    <VueFeather
-      v-if="icon"
-      :size="iconSize"
-      :class="{ 'mr-1': text }"
-      :type="icon"
-    />
-    <p v-if="text">{{ text }}</p>
-  </span>
+	<span
+		:class="`csg-badge ${classes}`"
+		:style="styles"
+	>
+		<slot />
+		<VueFeather
+			v-if="icon"
+			:size="iconSize"
+			:class="{ 'mr-1': text }"
+			:type="icon"
+		/>
+		<p v-if="text">{{ text }}</p>
+	</span>
 </template>
 
 <style lang="scss">

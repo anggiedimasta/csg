@@ -61,7 +61,8 @@ function toLast() {
 function toNext() {
 	if (pageNow.value >= props.totalPage) {
 		pageNow.value = props.totalPage
-	} else {
+	}
+	else {
 		pageNow.value = pageNow.value + 1
 	}
 }
@@ -71,7 +72,8 @@ function toPage(value) {
 function toPrev() {
 	if (pageNow.value <= 0) {
 		pageNow.value = 1
-	} else {
+	}
+	else {
 		pageNow.value = pageNow.value - 1
 	}
 }
@@ -81,93 +83,95 @@ function refresh() {
 </script>
 
 <template>
-  <div class="csg-table-footer">
-    <nav>
-      <ul class="csg-table-footer__pagination">
-        <li>
-          <span
-            class="pagination__link"
-            href="javascript:void(0)"
-            @click="toFirst"
-          >
-            <VueFeather
-              size="1.25rem"
-              type="chevrons-left"
-            />
-        </span>
-        </li>
-        <li>
-          <span
-            class="pagination__link"
-            href="javascript:void(0)"
-            @click="toPrev"
-          >
-            <VueFeather
-              size="1.25rem"
-              type="chevron-left"
-            />
-        </span>
-        </li>
-        <li class="pagination__pages">
-          <div class="pages__text">
-            Page
-            <CsgInput
-              v-model="pageNow"
-              :max="totalPage"
-              :min="1"
-              :placeholder="1"
-              align="center"
-              bg-color="white"
-              font-size="xs"
-              is-update-on-enter
-              size="xs"
-              type="number"
-              @update:model-value="toPage"
-            />
-            of
-            <span class="pages__total">{{ totalPage }}</span>
-          </div>
-        </li>
-        <li>
-          <span
-            class="pagination__link"
-            href="javascript:void(0)"
-            @click="toNext"
-          >
-            <VueFeather
-              size="1.25rem"
-              type="chevron-right"
-            />
-        </span>
-        </li>
-        <li>
-          <span
-            class="pagination__link"
-            href="javascript:void(0)"
-            @click="toLast"
-          >
-            <VueFeather
-              size="1.25rem"
-              type="chevrons-right"
-            />
-        </span>
-        </li>
-      </ul>
-    </nav>
-    <div
-      v-if="isShowingRefresh"
-      class="csg-table-footer__divider"
-    />
-    <CsgButton
-      v-if="isShowingRefresh"
-      icon="refresh-cw"
-      size="xs"
-      variant="transparent"
-      @click="refresh"
-    />
-    <div class="csg-table-footer__divider" />
-    <p class="csg-table-footer__page-info">Displaying {{ pageInfoFrom }} to {{ pageInfoTo }} of {{ totalRows }} Data</p>
-  </div>
+	<div class="csg-table-footer">
+		<nav>
+			<ul class="csg-table-footer__pagination">
+				<li>
+					<span
+						class="pagination__link"
+						href="javascript:void(0)"
+						@click="toFirst"
+					>
+						<VueFeather
+							size="1.25rem"
+							type="chevrons-left"
+						/>
+					</span>
+				</li>
+				<li>
+					<span
+						class="pagination__link"
+						href="javascript:void(0)"
+						@click="toPrev"
+					>
+						<VueFeather
+							size="1.25rem"
+							type="chevron-left"
+						/>
+					</span>
+				</li>
+				<li class="pagination__pages">
+					<div class="pages__text">
+						Page
+						<CsgInput
+							v-model="pageNow"
+							:max="totalPage"
+							:min="1"
+							:placeholder="1"
+							align="center"
+							bg-color="white"
+							font-size="xs"
+							is-update-on-enter
+							size="xs"
+							type="number"
+							@update:model-value="toPage"
+						/>
+						of
+						<span class="pages__total">{{ totalPage }}</span>
+					</div>
+				</li>
+				<li>
+					<span
+						class="pagination__link"
+						href="javascript:void(0)"
+						@click="toNext"
+					>
+						<VueFeather
+							size="1.25rem"
+							type="chevron-right"
+						/>
+					</span>
+				</li>
+				<li>
+					<span
+						class="pagination__link"
+						href="javascript:void(0)"
+						@click="toLast"
+					>
+						<VueFeather
+							size="1.25rem"
+							type="chevrons-right"
+						/>
+					</span>
+				</li>
+			</ul>
+		</nav>
+		<div
+			v-if="isShowingRefresh"
+			class="csg-table-footer__divider"
+		/>
+		<CsgButton
+			v-if="isShowingRefresh"
+			icon="refresh-cw"
+			size="xs"
+			variant="transparent"
+			@click="refresh"
+		/>
+		<div class="csg-table-footer__divider" />
+		<p class="csg-table-footer__page-info">
+			Displaying {{ pageInfoFrom }} to {{ pageInfoTo }} of {{ totalRows }} Data
+		</p>
+	</div>
 </template>
 
 <style lang="scss">
@@ -200,6 +204,7 @@ function refresh() {
       .pagination {
         &__link {
           @apply border-0;
+          @apply cursor-pointer;
           @apply flex;
           @apply no-underline;
           @apply p-0;
@@ -211,7 +216,7 @@ function refresh() {
           @apply ease-in-out;
 
           &:hover {
-            @apply text-blue-100;
+            @apply text-csg-secondary;
           }
         }
 

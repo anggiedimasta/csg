@@ -2,12 +2,19 @@
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import VueFeather from 'vue-feather'
 
-const navigation = [
-	{ name: 'Posts', href: '/post', icon: 'message-circle', current: true },
-	{ name: 'Reports', href: '/report', icon: 'pie-chart', current: false }
-]
-const sidebarOpen = ref(false)
 const route = useRoute()
+const sidebarOpen = ref(false)
+
+function isCurrentRouteActive(current: string) {
+	return current === route.path
+}
+
+const navigation = computed(() => {
+	return [
+		{ name: 'Posts', href: '/post', icon: 'message-circle', isActive: isCurrentRouteActive('/post') },
+		{ name: 'Reports', href: '/report', icon: 'pie-chart', isActive: isCurrentRouteActive('/report') }
+	]
+})
 </script>
 
 <template>
@@ -92,8 +99,9 @@ const route = useRoute()
 													:key="item.name"
 												>
 													<a
+														:class="[item.isActive ? 'bg-csg-tertiary text-white' : 'text-gray-700 hover:bg-csg-tertiary hover:text-white', 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold']"
 														:href="item.href"
-														:class="[item.current ? 'bg-csg-tertiary text-white' : 'text-gray-700 hover:bg-csg-tertiary hover:text-white', 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold']"
+														class="items-center"
 													>
 														<VueFeather
 															:type="item.icon"
@@ -140,8 +148,9 @@ const route = useRoute()
 									:key="item.name"
 								>
 									<a
+										:class="[item.isActive ? 'bg-csg-tertiary text-white' : 'text-gray-700 hover:bg-csg-tertiary hover:text-white', 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold']"
 										:href="item.href"
-										:class="[item.current ? 'bg-csg-tertiary text-white' : 'text-gray-700 hover:bg-csg-tertiary hover:text-white', 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold']"
+										class="items-center"
 									>
 										<VueFeather
 											:type="item.icon"
@@ -183,10 +192,8 @@ const route = useRoute()
 					{{ route.meta.title }}
 				</h1>
 			</div>
-			<main class="py-10">
-				<div class="px-4 sm:px-6 lg:px-8">
-					<NuxtPage />
-				</div>
+			<main class="p-4 sm:p-6 lg:p-8">
+				<NuxtPage />
 			</main>
 		</div>
 	</div>
