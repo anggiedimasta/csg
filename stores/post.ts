@@ -47,6 +47,38 @@ export const usePostStore = defineStore('postStore', {
 			rows: [],
 			totalPage: 0,
 			totalRows: 0
+		},
+		totalPostByUser: {
+			columns: [
+				{
+					headerAlign: 'center',
+					valueAlign: 'center',
+					key: 'userId',
+					label: 'User ID',
+					width: '100px',
+					isSortable: false
+				},
+				{
+					headerAlign: 'center',
+					key: 'totalPost',
+					label: 'Total Post',
+					valueAlign: 'center',
+					width: '100px',
+					isSortable: false
+				}
+			],
+			params: {
+				currentPage: 1,
+				perPage: 10,
+				search: null,
+				searchBy: [],
+				sortBy: null,
+				sortType: null
+			},
+			rows: [],
+			totalPage: 0,
+			totalRows: 0
+
 		}
 	}),
 	actions: {
@@ -58,6 +90,22 @@ export const usePostStore = defineStore('postStore', {
 			this.posts.rows = data
 			this.posts.totalRows = data.length
 			this.posts.totalPage = Math.ceil(data.length / this.posts.params.perPage)
+		},
+		getTotalPostByUser() {
+			const totalPostByUser: TotalPostByUserRaw = this.posts.rows.reduce((total, post) => {
+				if (!total[post.userId]) {
+					total[post.userId] = 0
+				}
+				total[post.userId]++
+				return total
+			}, {} as TotalPostByUserRaw)
+
+			this.totalPostByUser.rows = Object.entries(totalPostByUser).map(([userId, totalPost]) => ({
+				userId: Number(userId),
+				totalPost
+			}))
+			this.totalPostByUser.totalRows = this.totalPostByUser.rows.length
+			this.totalPostByUser.totalPage = Math.ceil(this.totalPostByUser.rows.length / this.totalPostByUser.params.perPage)
 		}
 	}
 })
