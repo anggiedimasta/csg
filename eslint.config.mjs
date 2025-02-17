@@ -8,7 +8,6 @@ export default withNuxt({
 		'indent': [2, 'tab', { SwitchCase: 1 }],
 		'no-mixed-spaces-and-tabs': 2,
 		'quotes': [2, 'single', { avoidEscape: true }],
-		'semi': [2, 'never'],
-		'space-before-function-paren': [2, 'never']
+		'semi': [2, 'never']
 	}
 })

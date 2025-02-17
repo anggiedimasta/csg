@@ -1,5 +1,3 @@
-import apiUrls from './constants/api-urls'
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	modules: ['@pinia/nuxt', '@nuxt/eslint', '@nuxtjs/tailwindcss'],
@@ -19,7 +17,7 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		// Keys within public are also exposed client-side
 		public: {
-			apiUrls,
+			apiBaseUrl: process.env.API_BASE_URL,
 			appName: 'CSG'
 		}
 	},
