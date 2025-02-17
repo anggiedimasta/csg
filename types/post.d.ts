@@ -23,6 +23,10 @@ declare global {
 			totalPage: number
 			totalRows: number
 		}
+		totalPostByKeyword: {
+			searchText: string
+			totalRows: number
+		}
 		totalPostByUser: {
 			columns: TableColumn[]
 			params: TableParams

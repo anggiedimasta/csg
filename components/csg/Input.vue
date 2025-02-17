@@ -1,6 +1,6 @@
 <script setup>
-import { colorOptions } from '@/constants/tailwind'
 import VueFeather from 'vue-feather'
+import { colorOptions } from '@/constants/tailwind'
 
 defineComponent({
 	name: 'CsgInput'
@@ -176,17 +176,20 @@ function updateValue(value, isEnter) {
 
 				if (props.max !== null && cleanedValue > props.max) {
 					cleanedValue = props.max // Set value to max if exceeded
-				} else if (props.min !== null && cleanedValue < props.min) {
+				}
+				else if (props.min !== null && cleanedValue < props.min) {
 					isValid.value = false
 					emits('on-validation-change', isValid.value)
-				} else {
+				}
+				else {
 					isValid.value = true
 					emits('on-validation-change', isValid.value)
 				}
 
 				emits('update:model-value', formatDecimal(cleanedValue) || '')
 				value.target.value = formatDecimal(cleanedValue)
-			} else {
+			}
+			else {
 				isValid.value = true
 				emits('update:model-value', val || '')
 				emits('on-validation-change', isValid.value)
@@ -196,7 +199,8 @@ function updateValue(value, isEnter) {
 
 		if (isEnter && props.isUpdateOnEnter) {
 			setValue()
-		} else if (!isEnter && !props.isUpdateOnEnter) {
+		}
+		else if (!isEnter && !props.isUpdateOnEnter) {
 			setValue()
 		}
 	}
@@ -236,78 +240,79 @@ const computedInputClasses = computed(() => {
 const computedPlaceholder = computed(() => {
 	if (props.isReadOnly) {
 		return '-'
-	} else {
+	}
+	else {
 		return !props.placeholder && props.label ? `Input ${props.label}...` : props.placeholder
 	}
 })
 </script>
 
 <template>
-  <div
-    class="csg-input"
-    :class="computedClasses"
-  >
-    <label
-      v-if="label"
-      :for="name"
-      class="csg-input__label"
-    >
-      <span>{{ label }}</span>
-      <span
-        v-if="isRequired"
-        class="text-red-700"
-      >
-        *
-      </span>
-    </label>
-    <div
-      class="csg-input__input-wrapper"
-      :class="computedInputWrapperClasses"
-    >
-      <slot name="csg-input-prepend" />
-      <input
-        :class="computedInputClasses"
-        :disabled="isDisabled || isLoading"
-        :max="max"
-        :min="min"
-        :name="name"
-        :placeholder="computedPlaceholder"
-        :readonly="isReadOnly"
-        :type="type || 'text'"
-        :value="modelValue"
-        class="csg-input__input"
-        v-bind="$attrs"
-        @input="(e) => updateValue(e, false)"
-        @keyup.enter="(e) => updateValue(e, true)"
-      >
-      <slot
-        v-if="!isError && !isLoading"
-        name="csg-input-append"
-      />
-      <div class="csg-input__icon">
-        <VueFeather
-          v-if="(isError || !isValid) && !isLoading"
-          class="csg-input__icon--error"
-          size="1.25rem"
-          type="alert-circle"
-          aria-hidden="true"
-        />
-        <div
-          v-if="isLoading"
-          class="loading__spinner"
-        >
-          <span class="loading__text">Loading...</span>
-        </div>
-      </div>
-    </div>
-    <p
-      v-if="errorMessage || (errorLabel && !isValid)"
-      class="csg-input__error-text"
-    >
-      <span v-if="errorMessage">{{ errorMessage }}</span>
-      <span v-if="errorLabel">{{ errorLabel }}</span>
-    </p>
-  </div>
+	<div
+		class="csg-input"
+		:class="computedClasses"
+	>
+		<label
+			v-if="label"
+			:for="name"
+			class="csg-input__label"
+		>
+			<span>{{ label }}</span>
+			<span
+				v-if="isRequired"
+				class="text-red-700"
+			>
+				*
+			</span>
+		</label>
+		<div
+			class="csg-input__input-wrapper"
+			:class="computedInputWrapperClasses"
+		>
+			<slot name="csg-input-prepend" />
+			<input
+				:class="computedInputClasses"
+				:disabled="isDisabled || isLoading"
+				:max="max"
+				:min="min"
+				:name="name"
+				:placeholder="computedPlaceholder"
+				:readonly="isReadOnly"
+				:type="type || 'text'"
+				:value="modelValue"
+				class="csg-input__input"
+				v-bind="$attrs"
+				@input="(e) => updateValue(e, false)"
+				@keyup.enter="(e) => updateValue(e, true)"
+			>
+			<slot
+				v-if="!isError && !isLoading"
+				name="csg-input-append"
+			/>
+			<div class="csg-input__icon">
+				<VueFeather
+					v-if="(isError || !isValid) && !isLoading"
+					class="csg-input__icon--error"
+					size="1.25rem"
+					type="alert-circle"
+					aria-hidden="true"
+				/>
+				<div
+					v-if="isLoading"
+					class="loading__spinner"
+				>
+					<span class="loading__text">Loading...</span>
+				</div>
+			</div>
+		</div>
+		<p
+			v-if="errorMessage || (errorLabel && !isValid)"
+			class="csg-input__error-text"
+		>
+			<span v-if="errorMessage">{{ errorMessage }}</span>
+			<span v-if="errorLabel">{{ errorLabel }}</span>
+		</p>
+	</div>
 </template>
 
 <style lang="scss">

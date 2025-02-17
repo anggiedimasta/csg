@@ -707,9 +707,9 @@ const computedTotalPage = computed(() => {
         }
 
         &__title {
-          @apply font-bold;
+          @apply font-semibold;
           @apply leading-6;
-          @apply text-black;
+          @apply text-gray-700;
           @apply text-lg;
         }
       }

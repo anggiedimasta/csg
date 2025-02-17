@@ -48,6 +48,10 @@ export const usePostStore = defineStore('postStore', {
 			totalPage: 0,
 			totalRows: 0
 		},
+		totalPostByKeyword: {
+			searchText: 'rerum',
+			totalRows: 0
+		},
 		totalPostByUser: {
 			columns: [
 				{
@@ -78,7 +82,6 @@ export const usePostStore = defineStore('postStore', {
 			rows: [],
 			totalPage: 0,
 			totalRows: 0
-
 		}
 	}),
 	actions: {
@@ -90,6 +93,15 @@ export const usePostStore = defineStore('postStore', {
 			this.posts.rows = data
 			this.posts.totalRows = data.length
 			this.posts.totalPage = Math.ceil(data.length / this.posts.params.perPage)
+		},
+		getTotalPostByKeyword(searchText: string) {
+			if (!searchText) {
+				this.resetTotalPostByKeyword()
+			}
+			else {
+				this.totalPostByKeyword.searchText = searchText
+				this.totalPostByKeyword.totalRows = this.posts.rows.filter((post) => post.body.toLowerCase().includes(this.totalPostByKeyword.searchText.toLowerCase())).length
+			}
 		},
 		getTotalPostByUser() {
 			const totalPostByUser: TotalPostByUserRaw = this.posts.rows.reduce((total, post) => {
@@ -106,6 +118,10 @@ export const usePostStore = defineStore('postStore', {
 			}))
 			this.totalPostByUser.totalRows = this.totalPostByUser.rows.length
 			this.totalPostByUser.totalPage = Math.ceil(this.totalPostByUser.rows.length / this.totalPostByUser.params.perPage)
+		},
+		resetTotalPostByKeyword() {
+			this.totalPostByKeyword.searchText = ''
+			this.totalPostByKeyword.totalRows = 0
 		}
 	}
 })
